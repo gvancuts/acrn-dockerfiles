@@ -17,6 +17,7 @@ RUN apt-get update \
                           libblkid-dev \
                           e2fslibs-dev \
                           pkg-config \
+                          xsltproc \
                           wget \
                           libnuma-dev \
                           liblz4-tool \
@@ -33,7 +34,7 @@ RUN wget https://acpica.org/sites/acpica/files/acpica-unix-20191018.tar.gz && \
    cd ../ && \
    rm -fr acpica-unix-20191018*
 
-RUN pip3 install kconfiglib
+RUN pip3 install lxml
 
 WORKDIR /workspace
 
