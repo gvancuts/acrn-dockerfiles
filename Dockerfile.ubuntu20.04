@@ -11,6 +11,7 @@ RUN apt-get update \
                           libsystemd-dev \
                           libevent-dev \
                           libxml2-dev \
+                          libxml2-utils \
                           libusb-1.0-0-dev \
                           python3 \
                           python3-pip \
@@ -23,18 +24,19 @@ RUN apt-get update \
                           liblz4-tool \
                           flex \
                           bison \
+                          clang-format \
     && apt-get clean
 
-RUN wget https://acpica.org/sites/acpica/files/acpica-unix-20191018.tar.gz && \
-   tar zxvf acpica-unix-20191018.tar.gz && \
-   cd acpica-unix-20191018 && \
+RUN wget https://acpica.org/sites/acpica/files/acpica-unix-20210105.tar.gz && \
+   tar zxvf acpica-unix-20210105.tar.gz && \
+   cd acpica-unix-20210105 && \
    make clean && \
    make iasl && \
    cp ./generate/unix/bin/iasl /usr/sbin/ && \
    cd ../ && \
-   rm -fr acpica-unix-20191018*
+   rm -fr acpica-unix-20210105*
 
-RUN pip3 install lxml
+RUN pip3 install lxml xmlschema
 
 WORKDIR /workspace
 
