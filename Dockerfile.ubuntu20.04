@@ -1,31 +1,36 @@
-# Build container based on Ubuntu 20.04
+# Build container based on Ubuntu 18.04
 FROM ubuntu:20.04
 
 # Install dependencies.
 RUN apt-get update \
-    && DEBIAN_FRONTEND="noninteractive" apt-get install -y gcc make vim git \
-                          m4 \
-                          libssl-dev \
-                          libpciaccess-dev \
-                          uuid-dev \
-                          libsystemd-dev \
-                          libevent-dev \
-                          libxml2-dev \
-                          libxml2-utils \
-                          libusb-1.0-0-dev \
-                          python3 \
-                          python3-pip \
-                          libblkid-dev \
-                          e2fslibs-dev \
-                          pkg-config \
-                          xsltproc \
-                          wget \
-                          libnuma-dev \
-                          liblz4-tool \
-                          flex \
-                          bison \
-                          clang-format \
-    && apt-get clean
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y gcc \
+		git \
+		make \
+		vim \
+		wget \
+		libssl-dev \
+		libpciaccess-dev \
+		uuid-dev \
+		libsystemd-dev \
+		libevent-dev \
+		libxml2-dev \
+		libxml2-utils \
+		libusb-1.0-0-dev \
+		python3 \
+		python3-pip \
+		libblkid-dev \
+		e2fslibs-dev \
+		pkg-config \
+		libnuma-dev \
+		liblz4-tool \
+		flex \
+		bison \
+		xsltproc \
+		clang-format \
+		bc \
+	&& apt-get clean
+
+RUN pip3 install lxml xmlschema defusedxml
 
 RUN wget https://acpica.org/sites/acpica/files/acpica-unix-20210105.tar.gz && \
    tar zxvf acpica-unix-20210105.tar.gz && \
@@ -35,8 +40,6 @@ RUN wget https://acpica.org/sites/acpica/files/acpica-unix-20210105.tar.gz && \
    cp ./generate/unix/bin/iasl /usr/sbin/ && \
    cd ../ && \
    rm -fr acpica-unix-20210105*
-
-RUN pip3 install lxml xmlschema
 
 WORKDIR /workspace
 
